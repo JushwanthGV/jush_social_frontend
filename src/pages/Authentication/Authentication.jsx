@@ -1,6 +1,7 @@
 import React from 'react'
 import { Grid,Card } from '@mui/material';
 import Login from './Login'; // adjust the path as needed
+import Register from './Register';
 
 const Authentication = () => {
   return (
@@ -17,7 +18,8 @@ const Authentication = () => {
                   <h1 className='logo text-center'>Jush Social</h1>
                   <p className='text-center text-sm w-{70%}'>Connecting Lives,Sharing Stories:Your Social World,Your Way</p>
                   </div>
-                 <Login/>
+                 {/* <Login/> */}
+                 <Register/>
                 </Card>
 
               </div>
