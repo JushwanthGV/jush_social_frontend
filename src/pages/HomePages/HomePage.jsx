@@ -2,12 +2,13 @@ import { Grid } from "@mui/material";
 import React from "react";
 
 import { Route, Routes, useLocation } from "react-router-dom";
-import MiddlePart from "../../components/MiddlePart";
+
 import Reels from "../../components/Reels/Reels";
 import CreateReelsFrom from "../../components/Reels/CreateReelsFrom";
 import Profile from "../Profile/Profile";
 import HomeRight from "../../components/HomeRight/HomeRight";
 import Sidebar from "../../components/Sidebar/Sidebar";
+import MiddlePart from "../../components/MiddlePart/MiddlePart";
 
 const HomePage = () => {
   const location = useLocation();
@@ -26,7 +27,7 @@ const HomePage = () => {
           xs={12}
         >
           <Routes>
-            <Route path="/" element={<MiddlePart />} />
+            <Route path="/" element={<MiddlePart/>} />
             <Route path="/reels" element={<Reels />} />
             <Route path="/create-reels" element={<CreateReelsFrom />} />
             <Route path="/profile/:id" element={<Profile />} />
