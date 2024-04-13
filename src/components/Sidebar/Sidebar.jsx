@@ -5,10 +5,14 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Button from '@mui/material/Button';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const Sidebar = () => {
+  const {auth}=useSelector(store=>store);
+  const navigate=useNavigate()
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -17,7 +21,11 @@ const Sidebar = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
-
+  const handleNavigate=(item)=>{
+    if(item.title ==="Profile"){
+      navigate(`/profile/${auth.user?.id}`)
+    }
+  }
 
   return (
     <Card className='card h-screen flex flex-col justify-between py-5'>
@@ -28,7 +36,7 @@ const Sidebar = () => {
         </div>
         <div className='space-y-8'>
           {navigationMenu.map((item) => (
-          <div className='cursor-pointer flex space-x-3 items-center'>
+          <div onClick={()=>handleNavigate(item)} className='cursor-pointer flex space-x-3 items-center'>
             {item.icon}
             <p className='text-xl'>{item.title}</p>
           </div> 
@@ -43,8 +51,8 @@ const Sidebar = () => {
           <div className='flex items-center space-x-3'>
             <Avatar src="https://avatarfiles.alphacoders.com/108/thumb-108886.gif" />
             <div>
-              <p className='font-bold'>JushCode</p>
-              <p className='opacity-70'>@jushcode</p>
+              <p className='font-bold'>{auth.user?.firstName+" "+auth.user?.lastName}</p>
+              <p className='opacity-70'>@{auth.user?.firstName.toLowerCase()+"_"+auth.user?.lastName.toLowerCase()}</p>
 
 
             </div>
