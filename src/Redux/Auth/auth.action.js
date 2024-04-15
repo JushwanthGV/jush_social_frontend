@@ -15,7 +15,7 @@ export const loginUserAction = (loginData) => async (dispatch) => {
     console.log("login success", data);
     dispatch({ type: "LOGIN_SUCCESS", payload: data.jwt });
   } catch (error) {
-    console.log("------------");
+    console.log("------------",error);
     dispatch({ type: "LOGIN_FAILURE", payload: error });
   }
 };
@@ -34,7 +34,7 @@ export const registerUserAction = (loginData) => async (dispatch) => {
     console.log("register-----", data);
     dispatch({ type: "LOGIN_SUCCESS", payload: data.jwt });
   } catch (error) {
-    console.log("------------");
+    console.log("------------",error);
     dispatch({ type: "LOGIN_FAILURE", payload: error });
   }
 };
@@ -42,17 +42,16 @@ export const registerUserAction = (loginData) => async (dispatch) => {
 export const getProfileAction = (jwt) => async (dispatch) => {
   dispatch({ type: "GET_PROFILE_REQUEST" });
   try {
-    const { data } = await axios.get(`${API_BASE_URL}/api/users/profile`, 
-    {
+    const { data } = await axios.get(`${API_BASE_URL}/api/users/profile`, {
       headers: {
         Authorization: `Bearer ${jwt}`,
-      }
+      },
     });
 
     console.log("Profile-----", data);
     dispatch({ type: "GET_PROFILE_SUCCESS", payload: data });
   } catch (error) {
-    console.log("------------");
+    console.log("------------",error);
     dispatch({ type: "GET_PROFILE_FAILURE", payload: error });
   }
 };
@@ -65,7 +64,7 @@ export const updateProfileAction = (reqData) => async (dispatch) => {
     console.log("Update Profile-----", data);
     dispatch({ type: "UPDATE_PROFILE_SUCCESS", payload: data });
   } catch (error) {
-    console.log("------------");
+    console.log("------------",error);
     dispatch({ type: "UPDATE_PROFILE_FAILURE", payload: error });
   }
 };
