@@ -59,12 +59,12 @@ export const getProfileAction = (jwt) => async (dispatch) => {
 export const updateProfileAction = (reqData) => async (dispatch) => {
   dispatch({ type: "UPDATE_PROFILE_REQUEST" });
   try {
-    const { data } = await api.post(`${API_BASE_URL}/api/users`, reqData);
+    const { data } = await api.put(`${API_BASE_URL}/api/users`, reqData);
 
     console.log("Update Profile-----", data);
     dispatch({ type: "UPDATE_PROFILE_SUCCESS", payload: data });
   } catch (error) {
-    console.log("------------",error);
+    console.log("Update Profile Error", error.response ? error.response.data : error);
     dispatch({ type: "UPDATE_PROFILE_FAILURE", payload: error });
   }
 };

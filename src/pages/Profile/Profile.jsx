@@ -1,5 +1,5 @@
 import { Avatar, Box, Button, Card, Tab, Tabs } from "@mui/material";
-import React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import PostCard from "../../components/Post/PostCard";
 import UserReelCard from "../../components/Reels/UserReelCard";
@@ -17,7 +17,7 @@ const reels = [1, 1, 1, 1, 1];
 const savedPost = [1, 1, 1, 1];
 const Profile = () => {
   const { id } = useParams();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
   const handleOpenProfileModal = () => setOpen(true);
   const handleClose = () => setOpen(false);
   const [value, setValue] = React.useState("post");
