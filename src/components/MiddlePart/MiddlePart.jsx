@@ -27,7 +27,7 @@ console.log("post store",post)
 
   useEffect(()=>{
     dispatch(getAllPostAction())
-  },[])
+  },[post.newComment])
 
   return (
     <div className="px-20">

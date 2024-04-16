@@ -21,12 +21,14 @@ import ChatBubbleIcon from "@mui/icons-material/ChatBubble";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import BookmarkIcon from "@mui/icons-material/Bookmark";
-import { useDispatch } from "react-redux";
-import { createCommentAction } from "../../Redux/Post/post.action";
+import { useDispatch, useSelector } from "react-redux";
+import { createCommentAction, likePostAction } from "../../Redux/Post/post.action";
+import { isLikedByReqUser } from "../../utils/isLikedByReqUser";
 
 const PostCard = ({ item }) => {
   const [showComments, setShowComments] = useState(false);
   const dispatch=useDispatch();
+  const {post,auth}=useSelector(store=>store);
   const handleShowComments = () => {
     setShowComments(!showComments);
   };
@@ -39,6 +41,12 @@ const PostCard = ({ item }) => {
     }
     dispatch(createCommentAction(reqData));
   }
+const handleLikePost=()=>{
+  dispatch(likePostAction(item.id))
+}
+
+console.log("is liked by requested user",isLikedByReqUser(auth.user.id, item));
+
   return (
     <Card className="">
       <CardHeader
@@ -60,12 +68,13 @@ const PostCard = ({ item }) => {
           item.user.lastName.toLowerCase()
         }
       />
-      <CardMedia
+      {/* <CardMedia
         component="img"
-        height="194"
+        height="100"
         image={item.image}
         alt="Paella dish"
-      />
+      /> */}
+      <img className="w-full  max-h-[30rem] object-cover object-top" src={item.image} alt="" />
       <CardContent>
         <Typography variant="body2" color="text.secondary">
           {item.caption}
@@ -74,8 +83,8 @@ const PostCard = ({ item }) => {
 
       <CardActions className="flex justify-between" disableSpacing>
         <div className="">
-          <IconButton>
-            {true ? <FavoriteIcon /> : <FavoriteBorderIcon />}
+          <IconButton onClick={handleLikePost}>
+            {isLikedByReqUser(auth.user.id, item)? <FavoriteIcon /> : <FavoriteBorderIcon />}
           </IconButton>
           <IconButton>{<ShareIcon />}</IconButton>
           <IconButton onClick={handleShowComments}>{<ChatBubbleIcon />}</IconButton>
@@ -105,16 +114,15 @@ const PostCard = ({ item }) => {
           </div>
           <Divider />
           <div className="mx-3 space-y-2 my-5 text-xs">
-            <div className="flex justify-between items-center">
-              <div className="flex items-center space-x-5">
+            
+              {item.comments?.map((comment)=><div className="flex items-center space-x-5">
                 <Avatar
-                  sx={{ height: "2rem", width: "2rem", fontSize: "8rem" }}
+                  sx={{ height: "2rem", width: "2rem", fontSize: "1rem" }}
                 >
-                  C
+                  {comment.user.firstName[0]}   
                 </Avatar>
-                <p>nice image</p>
-              </div>
-            </div>
+                <p>{comment.content}</p>
+              </div>)}
           </div>
         </section>
       )}
