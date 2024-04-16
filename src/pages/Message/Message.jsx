@@ -1,9 +1,12 @@
+import { Grid } from '@mui/material'
 import React from 'react'
 
 const Message = () => {
   return (
     <div>
-      Message
+      <Grid>
+        
+      </Grid>
     </div>
   )
 }

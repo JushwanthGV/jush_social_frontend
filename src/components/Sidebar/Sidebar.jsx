@@ -6,7 +6,8 @@ import MenuItem from "@mui/material/MenuItem";
 import Button from "@mui/material/Button";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
+
 
 const Sidebar = () => {
   const { auth } = useSelector((store) => store);
@@ -23,7 +24,10 @@ const Sidebar = () => {
     if (item.title === "Profile") {
       navigate(`/profile/${auth.user?.id}`);
     }
-  };
+    else {
+      navigate(item.path);
+    }
+    }
 
   return (
     <Card className="card h-screen flex flex-col justify-between py-5">
