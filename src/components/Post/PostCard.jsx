@@ -60,12 +60,22 @@ console.log("is liked by requested user",isLikedByReqUser(auth.user.id, item));
             <MoreVertIcon />
           </IconButton>
         }
-        title={item.user.firstName + " " + item.user.lastName}
-        subheader={
-          "@" +
-          item.user.firstName.toLowerCase() +
-          "_" +
-          item.user.lastName.toLowerCase()
+        title={
+          item && item.user ? (
+            <>
+              <Typography variant="h5">
+                {item.user.firstName + " " + item.user.lastName}
+              </Typography>
+              <Typography variant="subtitle1">
+                {"@" +
+                item.user.firstName.toLowerCase() +
+                "_" +
+                item.user.lastName.toLowerCase()}
+              </Typography>
+            </>
+          ) : (
+            "no user"
+          )
         }
       />
       {/* <CardMedia
@@ -74,12 +84,12 @@ console.log("is liked by requested user",isLikedByReqUser(auth.user.id, item));
         image={item.image}
         alt="Paella dish"
       /> */}
-      <img className="w-full  max-h-[30rem] object-cover object-top" src={item.image} alt="" />
+      <img className="w-full  max-h-[30rem] object-cover object-top" src={item && item.image ? item.image : 'defaultImage'} alt="" />
       <CardContent>
-        <Typography variant="body2" color="text.secondary">
-          {item.caption}
-        </Typography>
-      </CardContent>
+  <Typography variant="body2" color="text.secondary">
+    {item && item.caption ? item.caption : 'No caption'}
+  </Typography>
+</CardContent>
 
       <CardActions className="flex justify-between" disableSpacing>
         <div className="">

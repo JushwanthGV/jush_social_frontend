@@ -4,11 +4,12 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import { updateProfileAction } from "../../Redux/Auth/auth.action";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useFormik } from "formik";
 import { Avatar, IconButton, TextField } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useState } from "react";
+import { Store } from "@mui/icons-material";
 
 const style = {
   position: "absolute",
@@ -23,20 +24,23 @@ const style = {
   overflowY: "scroll-y",
   borderRadius: 3,
 };
+
 export default function ProfileModal({ open, handleClose }) {
   const dispatch = useDispatch();
+  const user = useSelector(store => store.user);
   const handleSubmit = (values) => {
     console.log("values", values);
   };
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
+      firstName: user ? user.firstName : "",
+      lastName: user ? user.lastName : "",
     },
     onSubmit: (values) => {
       console.log("values", values);
       dispatch(updateProfileAction(values));
     },
+    enableReinitialize: true,
   });
 
   return (
@@ -80,6 +84,7 @@ export default function ProfileModal({ open, handleClose }) {
                 id="firstName"
                 name="firstName"
                 label="First Name"
+                style={{ marginTop: "-30px" }}
                 value={formik.values.firstName}
                 onChange={formik.handleChange}
               />
