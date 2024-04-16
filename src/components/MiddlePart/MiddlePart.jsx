@@ -1,5 +1,5 @@
 import { Avatar, Card, IconButton } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import StoryCircle from "./StoryCircle";
 import ImageIcon from "@mui/icons-material/Image";
@@ -7,10 +7,16 @@ import VideocamIcon from '@mui/icons-material/Videocam';
 import ArticleIcon from '@mui/icons-material/Article';
 import PostCard from "../Post/PostCard";
 import CreatePostModal from "../CreatePost/CreatePostModal";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllPostAction } from "../../Redux/Post/post.action";
 
 const story = [1, 1, 1, 1, 1];
 const posts=[1,1,1,1,1];
 const MiddlePart = () => {
+  const dispatch=useDispatch();
+  const {post}=useSelector(store=>store);
+
+console.log("post store",post)
 
   const[openCreatePostModal,setOpenCreatePostModal]=useState(false);
   const handleCloseCreatePostModal = ()=>setOpenCreatePostModal(false);
@@ -18,6 +24,10 @@ const MiddlePart = () => {
     setOpenCreatePostModal(true);
     console.log("open post model......",openCreatePostModal);
   };
+
+  useEffect(()=>{
+    dispatch(getAllPostAction())
+  },[])
 
   return (
     <div className="px-20">
@@ -74,8 +84,8 @@ const MiddlePart = () => {
         </div>
       </Card>
       <div className="mt-5 space-y-5">
-        {posts.map((item) => 
-          <PostCard/>
+        {post.posts.map((item) => 
+          <PostCard item={item}/>
         )}
       </div>
       <div>
