@@ -20,7 +20,7 @@ const Profile = () => {
   const [open, setOpen] = useState(false);
   const handleOpenProfileModal = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const [value, setValue] = React.useState("post");
+  const [value, setValue] = useState("post");
   const {auth}=useSelector(store=>store);
   
   const handleChange = (event, newValue) => {

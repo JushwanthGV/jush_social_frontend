@@ -50,7 +50,6 @@ const Message = () => {
           </div>
           <div className="sticky bottom-0 border-l">
             messageInput
-
           </div>
         </Grid>
       </Grid>
