@@ -4,7 +4,9 @@ import WestIcon from "@mui/icons-material/West";
 import AddIcCallIcon from "@mui/icons-material/AddIcCall";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
 import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
-
+import SearchUser from "../../components/SearchUser/SearchUser";
+import "./Message.css";
+import UserChatCard from "./UserChatCard";
 
 const Message = () => {
   const handleSelectImage = () => {
@@ -21,9 +23,9 @@ const Message = () => {
                 <h1 className="text-xl font-bold">Home</h1>
               </div>
               <div className="h-[83vh]">
-                <div className="">searchUser</div>
+                <div className=""><SearchUser/></div>
                 <div className="h-full space-y-4 mt-5 overflow-y-scroll hideScrollbar">
-                  UserChatCard
+                  <UserChatCard/>
                 </div>
               </div>
             </div>
@@ -34,7 +36,7 @@ const Message = () => {
             <div className="flex justify-between items-center border-1 p-5">
               <div className="flex items-center space-x-3">
                 <Avatar src="https://cdn.pixabay.com/photo/2024/03/25/14/29/ai-generated-8654868_1280.png" />
-                <p>Pradeep</p>
+                <p>Adam</p>
               </div>
               <div className="flex space-x-3">
                 <IconButton>
