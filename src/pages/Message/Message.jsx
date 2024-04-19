@@ -3,10 +3,11 @@ import React from "react";
 import WestIcon from "@mui/icons-material/West";
 import AddIcCallIcon from "@mui/icons-material/AddIcCall";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
-import AddPhotoAlternateIcon from '@mui/icons-material/AddPhotoAlternate';
+import AddPhotoAlternateIcon from "@mui/icons-material/AddPhotoAlternate";
 import SearchUser from "../../components/SearchUser/SearchUser";
 import "./Message.css";
 import UserChatCard from "./UserChatCard";
+import ChatMessage from "./ChatMessage";
 
 const Message = () => {
   const handleSelectImage = () => {
@@ -23,9 +24,11 @@ const Message = () => {
                 <h1 className="text-xl font-bold">Home</h1>
               </div>
               <div className="h-[83vh]">
-                <div className=""><SearchUser/></div>
+                <div className="">
+                  <SearchUser />
+                </div>
                 <div className="h-full space-y-4 mt-5 overflow-y-scroll hideScrollbar">
-                  <UserChatCard/>
+                  <UserChatCard />
                 </div>
               </div>
             </div>
@@ -48,7 +51,7 @@ const Message = () => {
               </div>
             </div>
             <div className="hideScrollbar overflow-y-scroll h-[82vh] px-2 space-y-5 py-5">
-              message
+              <ChatMessage/>
             </div>
           </div>
           <div className="sticky bottom-0 border-l">
@@ -67,7 +70,7 @@ const Message = () => {
                   id="image-input"
                 />
                 <label htmlFor="image-input">
-                    <AddPhotoAlternateIcon/>
+                  <AddPhotoAlternateIcon />
                 </label>
               </div>
             </div>

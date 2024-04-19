@@ -1,8 +1,9 @@
-import { Avatar, CardHeader, IconButton } from "@mui/material";
+import { Avatar, Card, CardHeader, IconButton } from "@mui/material";
 import React from "react";
 import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
 const UserChatCard = () => {
   return (
+    <Card>
     <CardHeader
       avatar={
         <Avatar
@@ -21,8 +22,9 @@ const UserChatCard = () => {
       </IconButton>
       }
       title="Jush"
-      subheader={"jush"}
+      subheader={"new message"}
     ></CardHeader>
+    </Card>
   );
 };
 
