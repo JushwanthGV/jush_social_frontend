@@ -1,5 +1,5 @@
 import { Avatar, Grid, IconButton } from "@mui/material";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import WestIcon from "@mui/icons-material/West";
 import AddIcCallIcon from "@mui/icons-material/AddIcCall";
 import VideoCallIcon from "@mui/icons-material/VideoCall";
@@ -8,11 +8,33 @@ import SearchUser from "../../components/SearchUser/SearchUser";
 import "./Message.css";
 import UserChatCard from "./UserChatCard";
 import ChatMessage from "./ChatMessage";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllChats } from "../../Redux/Message/message.action";
 
 const Message = () => {
+  const { message, auth } = useSelector((store) => store);
+  const [currentChat, setCurrentChat] = useState();
+  const [messages, setMessages] = useState();
+  const [selectedImage, setSelectedImage] = useState();
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllChats());
+  }, []);
+
+  console.log("chats------------", message.chats);
   const handleSelectImage = () => {
     console.log("handle select image.....");
   };
+
+  const handleCreateMessage = (value) => {
+    const message = {
+      chatid: currentChat.id,
+      content: value,
+      image: selectedImage,
+    };
+  };
+
   return (
     <div>
       <Grid container className="h-screen overflow-y-hidden">
@@ -28,7 +50,16 @@ const Message = () => {
                   <SearchUser />
                 </div>
                 <div className="h-full space-y-4 mt-5 overflow-y-scroll hideScrollbar">
-                  <UserChatCard />
+                  {message.chats.map((item) => {
+                    return<div
+                      onClick={() => {
+                        setCurrentChat(item);
+                        setMessages(item.messages);
+                      }}
+                    >
+                      <UserChatCard chat={item} />
+                    </div>;
+                  })}
                 </div>
               </div>
             </div>
@@ -51,7 +82,7 @@ const Message = () => {
               </div>
             </div>
             <div className="hideScrollbar overflow-y-scroll h-[82vh] px-2 space-y-5 py-5">
-              <ChatMessage/>
+              <ChatMessage />
             </div>
           </div>
           <div className="sticky bottom-0 border-l">

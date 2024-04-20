@@ -41,11 +41,11 @@ export const createChat = (chat) => async (dispatch) => {
   }
 };
 
-export const getAllChats = (message) => async (dispatch) => {
+export const getAllChats = () => async (dispatch) => {
     dispatch({ type: actionType.GET_ALL_CHAT_REQUEST});
   
     try {
-      const { data } = await api.get(`/api/chats/user`, message);
+      const { data } = await api.get(`/api/chats`);
       console.log("get all chat", data);
       dispatch({ type: actionType.GET_ALL_CHAT_SUCCESS, payload: data });
     } catch (error) {
