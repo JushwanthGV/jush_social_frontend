@@ -18,6 +18,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { createMessage, getAllChats } from "../../Redux/Message/message.action";
 import ChatBubbleOutlineIcon from "@mui/icons-material/ChatBubbleOutline";
 import { uploadToCloudinary } from "../../utils/uploadToCloudinary";
+import SockJS from "sockjs-client";
+import Stomp from 'stompjs';
 
 const Message = () => {
   const { message, auth } = useSelector((store) => store);
@@ -41,17 +43,55 @@ const Message = () => {
   };
 
   const handleCreateMessage = (value) => {
+    if(!currentChat){
+      console.log("current chat is null");
+      return; // return early if currentChat is null
+    }
+  
     const message = {
-      chatid: currentChat?.id,
+      chatid: currentChat.id,
       content: value,
       image: selectedImage,
     };
-    dispatch(createMessage(message));
+  
+    dispatch(createMessage({message,sendMessageToServer}));
   };
   useEffect(() => {
     setMessages([...messages, message.message]);
   }, [message.message]);
+  const[stompClient,setStomClient]=useState(null);
 
+  useEffect(()=>{
+    const sock=new SockJS('http://localhost:5454/ws');
+    const stomp=Stomp.over(sock)//top two lines connect us to the client
+    setStomClient(stomp);
+
+    stomp.connect({},onConnect,onErr)
+  },[])
+
+  const onConnect=()=>{
+    console.log("websocket connected-----------")
+  }
+
+  const onErr=()=>{
+    console.log("websocket error-----------")
+  }
+
+  useEffect(()=>{
+    if(stompClient && auth.user && currentChat){
+      const subscription=stompClient.subscribe(`/user/${currentChat.id}/private`)
+      //onMessageRecieved)
+    }
+  })
+  const sendMessageToServer=(newMessage)=>{
+    if(stompClient && newMessage){
+      stompClient.send(`/app/chat/${currentChat?.id.toString()}`,{},JSON.stringify(message))
+    }
+  }
+  const onMessageRecieved=(newMessage)=>{
+      console.log("message recieved from websocket",newMessage)
+      
+    }
   return (
     <div>
       <Grid container className="h-screen overflow-y-hidden">
