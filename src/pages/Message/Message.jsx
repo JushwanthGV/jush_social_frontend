@@ -45,7 +45,7 @@ const Message = () => {
   const handleCreateMessage = (value) => {
     if(!currentChat){
       console.log("current chat is null");
-      return; // return early if currentChat is null
+      return;  // return early if currentChat is null
     }
   
     const message = {
